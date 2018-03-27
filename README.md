@@ -7,7 +7,7 @@ Trying out this plugin: https://github.com/Tmeister/wp-api-jwt-auth
 
 - If you need the ACFs of the post, install these plugins as well: [ACF to REST API](https://wordpress.org/plugins/acf-to-rest-api/) and [Advanced Custom Fields](https://wordpress.org/plugins/advanced-custom-fields/).
 
-- If you want to secure all API routes, including for GET requests, install this plugin: [](https://wordpress.org/plugins/disable-rest-api-and-require-jwt-oauth-authentication/).
+- If you want to secure all API routes, including for GET requests, install this plugin: [Disable REST API and Require JWT / OAuth Authentication](https://wordpress.org/plugins/disable-rest-api-and-require-jwt-oauth-authentication/).
 
 - Editing .htaccess to allow the `authorization` header in your HTTP requests
 If your WordPress site is hosted on *WPEngine*, you'll need to edit your .htaccess file to include this:
