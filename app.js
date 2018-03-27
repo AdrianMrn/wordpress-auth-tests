@@ -9,7 +9,6 @@ const post = {
     // WP reserved fields (https://developer.wordpress.org/rest-api/reference/posts/#create-a-post)
     content: 'leegggogoooooo',
     title: 'very talk much speak',
-    excerpt: 'wow',
     status: 'publish',
     // CPT
     type: 'talks',
