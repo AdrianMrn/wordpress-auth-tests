@@ -1,15 +1,12 @@
 # wordpress-auth-tests
 **Contents:**
-- [Point of this repo](#Point of this repo)
-- [Walkthrough](#Walkthrough)
-  * [Server](#Server)
-    + [Installing plugins in your WordPress dashboard](#Installing plugins in your WordPress dashboard)
-  * [Client](#Client)
-    + [Getting your token](#Getting your token)
-
-- [Credits](#heading-2)
-  * [Sub-heading](#sub-heading-2)
-    + [Sub-sub-heading](#sub-sub-heading-2)
+- [Point of this repo](#point-of-this-repo)
+- [Walkthrough](#walkthrough)
+  * [Server](#server)
+    + [Installing plugins in your WordPress dashboard](#installing-plugins-in-your-wordpress-dashboard)
+  * [Client](#client)
+    + [Getting your token](#getting-your-token)
+- [Credits](#credits-and-ps)
 
 # Point of this repo
 I wanted to try and see if I could get a somewhat decent type of authentication/authorization working on the WordPress REST API, specifically on HTTP PUT requests trying to change custom fields of custom post types (this will also work to create WP vanilla posts). The options I considered were [basic auth](https://github.com/WP-API/Basic-Auth), [OAuth1.0a](https://github.com/WP-API/OAuth1), [application passwords](https://wordpress.org/plugins/application-passwords/) and [JSON Web Tokens (JWT)](https://github.com/Tmeister/wp-api-jwt-auth). All of these were mentioned on the WordPress dev resources wiki on this topic: https://developer.wordpress.org/rest-api/using-the-rest-api/authentication/
@@ -41,7 +38,7 @@ RewriteRule ^(.*) - [E=HTTP_AUTHORIZATION:%1]
 
 ### Editing wp-config.php to enable the JWT plugin.
 Edit your site's wp-config.php to include these lines of code *at or near the top of your file*.
-```
+```PHP
 define('JWT_AUTH_CORS_ENABLE', true);
 define('JWT_AUTH_SECRET_KEY', 'your-long-difficult-secret-string');
 ```
@@ -58,7 +55,7 @@ More info on CORS [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)
 Send a POST request to `[wp-install]/wp-json/wp/v2/{post-type}`. Don't forget to include the bearer in your header. You can include any of [these arguments](https://developer.wordpress.org/rest-api/reference/posts/#create-a-post) in the postdata.
 
 Example:
-```
+```JS
 const postdata = {
     title: 'Title of my Post',
     content: 'Some text. Can include <span style="font-size:25;">HTML tags</span>',
@@ -83,7 +80,7 @@ axios.post(`${apiUri}/wp/v2/${post.type}`, postdata, config)
 
 ### Editing a post's custom fields
 Send your POST requests to `[wp-install]/wp-json/acf/v3/{post-type}/{post-id}` and include the custom fields in the postdata as the fields object:
-```
+```JS
 postdata = {
     fields: {
         first_name: 'Bobby',
