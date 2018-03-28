@@ -33,7 +33,7 @@ getToken = (credentials, callback) => {
         });
 }
 
-testPost = (token, callback) => {
+createPost = (token, callback) => {
     console.log(`Running POST`);
 
     config = { headers: { 'Authorization': "Bearer " + token } };
@@ -54,7 +54,7 @@ const token = getToken({ username: process.env.USER_NAME, password: process.env.
         console.log(err); //err.response.data should provide more info about the error, unless we didn't get a response at all (eg server down)
     } else {
         console.log(`Got token: ${response.token}`);
-        testPost(response.token, (postId) => {
+        createPost(response.token, (postId) => {
             axios.put(`${apiUri}/acf/v3/${post.type}/${postId}`, post, config)
                 .then(function (response) {
                     console.log(response);
