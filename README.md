@@ -4,8 +4,12 @@
 - [Walkthrough](#walkthrough)
   * [Server](#server)
     + [Installing plugins in your WordPress dashboard](#installing-plugins-in-your-wordpress-dashboard)
-  * [Client](#client)
+    + [Editing .htaccess to allow the authorization header in your HTTP requests](#editing-htaccess-to-allow-the-authorization-header-in-your-http-requests)
+    + [Editing wp-config.php to enable the JWT plugin](#editing-wp-configphp-to-enable-the-jwt-plugin)
+  * [Client](#user-content-client-eg-react-native-nodejs-angular-)
     + [Getting your token](#getting-your-token)
+    + [Creating and editing a post](#creating-and-editing-a-post)
+    + [Editing a post's custom fields](#editing-a-posts-custom-fields)
 - [Credits](#credits-and-ps)
 
 # Point of this repo
@@ -36,7 +40,7 @@ RewriteCond %{HTTP:Authorization} ^(.*)
 RewriteRule ^(.*) - [E=HTTP_AUTHORIZATION:%1]
 ```
 
-### Editing wp-config.php to enable the JWT plugin.
+### Editing wp-config.php to enable the JWT plugin
 Edit your site's wp-config.php to include these lines of code *at or near the top of your file*.
 ```PHP
 define('JWT_AUTH_CORS_ENABLE', true);
