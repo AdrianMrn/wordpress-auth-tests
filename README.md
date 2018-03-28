@@ -1,5 +1,17 @@
 # wordpress-auth-tests
-## Point of this repo
+**Contents:**
+- [Point of this repo](#Point of this repo)
+- [Walkthrough](#Walkthrough)
+  * [Server](#Server)
+    + [Installing plugins in your WordPress dashboard](#Installing plugins in your WordPress dashboard)
+  * [Client](#Client)
+    + [Getting your token](#Getting your token)
+
+- [Credits](#heading-2)
+  * [Sub-heading](#sub-heading-2)
+    + [Sub-sub-heading](#sub-sub-heading-2)
+
+# Point of this repo
 I wanted to try and see if I could get a somewhat decent type of authentication/authorization working on the WordPress REST API, specifically on HTTP PUT requests trying to change custom fields of custom post types (this will also work to create WP vanilla posts). The options I considered were [basic auth](https://github.com/WP-API/Basic-Auth), [OAuth1.0a](https://github.com/WP-API/OAuth1), [application passwords](https://wordpress.org/plugins/application-passwords/) and [JSON Web Tokens (JWT)](https://github.com/Tmeister/wp-api-jwt-auth). All of these were mentioned on the WordPress dev resources wiki on this topic: https://developer.wordpress.org/rest-api/using-the-rest-api/authentication/
 
 I used a local node.js script to try out some of these plugins and eventually decided on using authentication through [JSON Web Tokens (JWT)](https://github.com/Tmeister/wp-api-jwt-auth). I tried to write down a summary of how I did this below. You can also check out the .js files in this repo if you want to see some sample code.
