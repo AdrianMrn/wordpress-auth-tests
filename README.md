@@ -1,12 +1,12 @@
 # wordpress-auth-tests
-### Point of this repo
+## Point of this repo
 I wanted to try and see if I could get a somewhat decent type of authentication/authorization working on the WordPress REST API, specifically on HTTP PUT requests trying to change custom fields of custom post types (this will also work to create WP vanilla posts). The options I considered were [basic auth](https://github.com/WP-API/Basic-Auth), [OAuth1.0a](https://github.com/WP-API/OAuth1), [application passwords](https://wordpress.org/plugins/application-passwords/) and [JSON Web Tokens (JWT)](https://github.com/Tmeister/wp-api-jwt-auth). All of these were mentioned on the WordPress dev resources wiki on this topic: https://developer.wordpress.org/rest-api/using-the-rest-api/authentication/
 
 I used a local node.js script to try out some of these plugins and eventually decided on using authentication through [JSON Web Tokens (JWT)](https://github.com/Tmeister/wp-api-jwt-auth). I tried to write down a summary of how I did this below. You can also check out the .js files in this repo if you want to see some sample code.
 
 # Walkthrough
 ## Server
-#### Installing plugins in your WordPress dashboard
+### Installing plugins in your WordPress dashboard
 Install the following plugins according to your needs:
 - [JWT Authentication for WP REST API](https://wordpress.org/plugins/jwt-authentication-for-wp-rest-api/) **(required for authentication)**
 
@@ -14,7 +14,7 @@ Install the following plugins according to your needs:
 
 - If you want to **secure all API endpoints**, including GET requests, install this plugin: [Disable REST API and Require JWT / OAuth Authentication](https://wordpress.org/plugins/disable-rest-api-and-require-jwt-oauth-authentication/).
 
-#### Editing .htaccess to allow the _authorization_ header in your HTTP requests
+### Editing .htaccess to allow the _authorization_ header in your HTTP requests
 If your WordPress site is hosted on **WPEngine**, you'll need to edit your .htaccess file to include this:
 ```
 SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
@@ -27,7 +27,7 @@ RewriteCond %{HTTP:Authorization} ^(.*)
 RewriteRule ^(.*) - [E=HTTP_AUTHORIZATION:%1]
 ```
 
-#### Editing wp-config.php to enable the JWT plugin.
+### Editing wp-config.php to enable the JWT plugin.
 Edit your site's wp-config.php to include these lines of code *at or near the top of your file*.
 ```
 define('JWT_AUTH_CORS_ENABLE', true);
@@ -37,12 +37,12 @@ You can get a randomised secure string from [here](https://api.wordpress.org/sec
 More info on CORS [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
 
 ## Client (eg React Native, Node.js, Angular, ...)
-#### Getting your token
+### Getting your token
 **Execute a HTTP POST** to `[wp-install]/wp-json/jwt-auth/v1/token` with a user's credentials in the postdata as `{username: bob, password: secret}`. The response (if done correctly) should include a bearer token in `response.data.token`, save this token somewhere (localStorage, cookie, ...). This token shouldn't be shared with anyone else other than the user who logged in (including you).
 
 **Include the bearer token in the header** of any following POST requests as `'Authorization': "Bearer " + token`
 
-#### Creating and editing a post
+### Creating and editing a post
 Send a POST request to `[wp-install]/wp-json/wp/v2/{post-type}`. Don't forget to include the bearer in your header. You can include any of [these arguments](https://developer.wordpress.org/rest-api/reference/posts/#create-a-post) in the postdata.
 
 Example:
@@ -69,7 +69,7 @@ axios.post(`${apiUri}/wp/v2/${post.type}`, postdata, config)
     });
 ```
 
-#### Editing a post's custom fields
+### Editing a post's custom fields
 Send your POST requests to `[wp-install]/wp-json/acf/v3/{post-type}/{post-id}` and include the custom fields in the postdata as the fields object:
 ```
 postdata = {
