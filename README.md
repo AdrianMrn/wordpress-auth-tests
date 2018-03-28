@@ -89,5 +89,7 @@ axios.put(`${apiUri}/acf/v3/${post.type}/${postId}`, postdata, config)
 ```
 This uses an endpoint created by the [ACF to REST API plugin](https://github.com/airesvsg/acf-to-rest-api). For more information on that plugin, refer to their GitHub page.
 
+# Credits and PS
+Contributors: [Adriaan Marain](https://github.com/AdrianMrn) and [Ruben Pauwels](https://github.com/RubenPauwels1). 
 
 Create an issue or a pull request if something was unclear or wrong mmkay?
