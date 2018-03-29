@@ -49,6 +49,11 @@ define('JWT_AUTH_SECRET_KEY', 'your-long-difficult-secret-string');
 You can get a randomised secure string from [here](https://api.wordpress.org/secret-key/1.1/salt/).
 More info on CORS [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
 
+Consider adding this line if you need the expiry date of the token to be longer than the default one week:
+```PHP
+define('JWT_AUTH_EXPIRE', [expiry date in unix]);
+```
+
 ## Client (eg React Native, Node.js, Angular, ...)
 ### Getting your token
 - Execute a HTTP POST to `[wp-install]/wp-json/jwt-auth/v1/token` with a user's credentials in the postdata as `{username: bob, password: secret}`. The response (if done correctly) should include a bearer token in `response.data.token`, save this token somewhere (localStorage, cookie, ...). This token shouldn't be shared with anyone else other than the user who logged in (including you).
