@@ -10,6 +10,7 @@
     + [Getting your token](#getting-your-token)
     + [Creating and editing a post](#creating-and-editing-a-post)
     + [Editing a post's custom fields](#editing-a-posts-custom-fields)
+    + [Adding BASE 64 encoded images (React Native only)](#adding-base-64-encoded-images-react-native-only)
 - [Credits](#credits-and-ps)
 
 # Point of this repo
@@ -106,6 +107,44 @@ axios.put(`${apiUri}/acf/v3/${post.type}/${postId}`, postdata, config)
     });
 ```
 This uses an endpoint created by the [ACF to REST API plugin](https://github.com/airesvsg/acf-to-rest-api). For more information on that plugin, refer to their GitHub page.
+
+### Adding BASE64 encoded images (React Native only)
+This section is very much out of the scope of this article, but I had so much issues trying to get it to work that I want to share my solution. Again, *this solution will only work in React Native*, as we'll be using a library specific to the platform.
+
+I'm using the [react-native-image-picker](https://github.com/react-community/react-native-image-picker) and [react-native-fetch-blob](https://github.com/joltup/react-native-fetch-blob) libraries, but you can use any library you want to get the image. Run these commands in your project root to include them in your project:
+```
+npm install --save react-native-image-picker
+npm install --save react-native-fetch-blob
+react-native link
+```
+
+Then run this code to POST the image to your WP REST API:
+```JS
+import RNFetchBlob from 'react-native-fetch-blob';
+
+/* const image = {
+    uri: 'file://...',
+    type: 'image/jpeg',
+    name: 'photo.jpg'
+} */ // output from react-native-image-picker
+const imageUri = `RNFetchBlob-${image.uri}`
+RNFetchBlob.fetch('post', `${baseURL}wp/v2/media`,
+    { // extra headers
+        'Authorization': env.wpApiToken, // 'Bearer ...'
+        'Content-Type': image.type, // 'image/jpeg', 'image/png', ...
+        'Content-Disposition': `attachment; filename=${image.name}`
+    }
+    , imageUri)
+    .then((response) => {
+        responseImageData = JSON.parse(response.data);
+        return(responseImageData.guid.rendered); // this will be the URL of the image on your website
+    })
+    .catch(() => {
+        return(null);
+    })
+```
+
+You can now send another POST to use the media as the featured image of the post or include the image's URL as an ACF field.
 
 # Credits and PS
 Contributors: [Adriaan Marain](https://github.com/AdrianMrn) and [Ruben Pauwels](https://github.com/RubenPauwels1). 
